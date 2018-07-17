@@ -1,0 +1,80 @@
+import React, { Component } from 'react';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import * as HeaderStyle from '../css/header.css';
+import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { updateMapCoords, getLocation, postCoords, getCoords } from '../actions/map-actions';
+
+
+class Header extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.onUpdateCoords = this.onUpdateCoords.bind(this);
+        this.onGetCoords = this.onGetCoords.bind(this);
+    }
+
+    onUpdateCoords() {
+        this.props.onUpdateLocation();
+        this.props.postNewCoords();
+    }
+
+    onGetCoords() {
+        this.props.getNewCoords();
+    }
+
+    componentDidMount(){}
+
+    render() {
+        return (
+            <Navbar inverse collapseOnSelect className={HeaderStyle.Navbar}>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a>Where is your Car</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1} componentClass={Link} href="/" to="/">
+                            Home
+                        </NavItem>
+                        <NavItem eventKey={1} componentClass={Link} href="/User" to="/User">
+                            User
+                        </NavItem>
+                        <NavDropdown eventKey={3} title="Help" id="basic-nav-dropdown">
+                            <MenuItem eventKey={3.1} target='_blank' href="https://twitter.com/car_where">Status</MenuItem>
+                            <MenuItem eventKey={3.2} componentClass={Link} href="/Info" to='/Info'>Info</MenuItem>
+                        </NavDropdown>
+                    </Nav>
+                    <Nav pullRight>
+                        <NavItem onClick={this.onUpdateCoords} eventKey={1} href="#">
+                            Park!
+                </NavItem>
+                        <NavItem onClick={this.onGetCoords} eventKey={2} href="#">
+                            Where did I park?
+                </NavItem>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        );
+    }
+}
+
+const mapStateToProps = state => ({
+    mapLat: state.map.lat,
+    mapLng: state.map.lng,
+    mapZoom: state.map.zoom,
+    map: state.map
+});
+
+const mapActionsToProps = {
+    onUpdateCoords: updateMapCoords,
+    onUpdateLocation: getLocation,
+    postNewCoords: postCoords,
+    getNewCoords: getCoords
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Header);
