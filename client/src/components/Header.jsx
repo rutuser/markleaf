@@ -4,7 +4,7 @@ import * as HeaderStyle from '../css/header.css';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { updateMapCoords, getLocation, postCoords, getCoords } from '../actions/map-actions';
+import { updateMapCoords, getLocation, postCoords, getCoords, setDirections, setTrafficLawyer } from '../actions/map-actions';
 
 
 class Header extends Component {
@@ -14,6 +14,9 @@ class Header extends Component {
 
         this.onUpdateCoords = this.onUpdateCoords.bind(this);
         this.onGetCoords = this.onGetCoords.bind(this);
+        this.onGetLocation = this.onGetLocation.bind(this);
+        this.onSetRoute = this.onSetRoute.bind(this);
+        this.onSetTrafficLawyer = this.onSetTrafficLawyer.bind(this);
     }
 
     onUpdateCoords() {
@@ -25,7 +28,22 @@ class Header extends Component {
         this.props.getNewCoords();
     }
 
-    componentDidMount(){}
+    onGetLocation() {
+        this.props.onUpdateLocation();
+    }
+
+    onSetRoute() {
+        navigator.geolocation.getCurrentPosition(position => {
+            this.props.onSetDirection(position.coords.latitude, position.coords.longitude,
+                this.props.mapLat, this.props.mapLng);
+        });
+    }
+
+    onSetTrafficLawyer() {
+        this.props.onTrafficLawyer(this.props.trafficLawyer);
+    }
+
+    componentDidMount() { }
 
     render() {
         return (
@@ -53,9 +71,12 @@ class Header extends Component {
                         <NavItem onClick={this.onUpdateCoords} eventKey={1} href="#">
                             Park!
                 </NavItem>
-                        <NavItem onClick={this.onGetCoords} eventKey={2} href="#">
-                            Where did I park?
-                </NavItem>
+                        <NavDropdown eventKey={4} title="Options" id="basic-nav-dropdown">
+                            <MenuItem onClick={this.onGetLocation} eventKey={4.1}>My Location</MenuItem>
+                            <MenuItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </MenuItem>
+                            <MenuItem onClick={this.onSetRoute} eventKey={4.3}>G0! </MenuItem>
+                            <MenuItem onClick={this.onSetTrafficLawyer} eventKey={4.4}>Traffic Lawyer </MenuItem>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -67,14 +88,17 @@ const mapStateToProps = state => ({
     mapLat: state.map.lat,
     mapLng: state.map.lng,
     mapZoom: state.map.zoom,
-    map: state.map
+    map: state.map,
+    trafficLawyer: state.map.trafficLawyer
 });
 
 const mapActionsToProps = {
     onUpdateCoords: updateMapCoords,
     onUpdateLocation: getLocation,
     postNewCoords: postCoords,
-    getNewCoords: getCoords
+    getNewCoords: getCoords,
+    onSetDirection: setDirections,
+    onTrafficLawyer: setTrafficLawyer
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Header);

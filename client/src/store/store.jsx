@@ -7,9 +7,11 @@ const middleWare = [thunk];
 
 const initialState = {
   map: {
-    lat: 48.864716,
-    lng: 2.349014,
-    zoom: 8
+    lat: 0,
+    lng: 0,
+    zoom: 8,
+    directions: {},
+    trafficLawyer: false
   },
   info: '',
   header: {},

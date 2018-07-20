@@ -20,7 +20,6 @@ router.post('/', (req, res) => {
     lat: req.body.lat,
     lng: req.body.lng
   });
-
   newCoords.save()
   .then(coords => res.json(coords))
   .catch(console.log('Something´s wrong...'));
