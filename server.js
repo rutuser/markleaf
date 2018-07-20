@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const db = require('./config/apiKey').mongoURI;
 
 const coords = require('./routes/api/Coords');
+const user = require('./routes/api/User');
 
 const app = express();
 
@@ -16,6 +17,7 @@ mongoose.connect(db, { useNewUrlParser: true })
 
 //Use routes
 app.use('/api/coords', coords);
+app.use('/api/user', user)
 
 const port = process.env.PORT || 5000;
 
