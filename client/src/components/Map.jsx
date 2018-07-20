@@ -43,7 +43,7 @@ class App extends Component {
 	}
 
 	onMapClick() {
-		this.props.onUpdateCoords(48.864716, 2.349014)
+		//this.props.onUpdateCoords(48.864716, 2.349014)
 	}
 
 	onMarkerClick() {

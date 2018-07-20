@@ -16,15 +16,6 @@ mongoose.connect(db, { useNewUrlParser: true })
 
 //Use routes
 app.use('/api/coords', coords);
-/*
-app.get('/api/locations', (req, res) => {
-    const locations = [
-        {lat: 20, lng: 40},
-        {lat: 30, lng: 50},
-        {lat: 40, lng: 60}
-    ];
-    res.json(locations);
-}); */
 
 const port = process.env.PORT || 5000;
 
