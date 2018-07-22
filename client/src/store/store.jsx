@@ -13,9 +13,13 @@ const initialState = {
     directions: {},
     trafficLawyer: false
   },
+  user: {
+    name: '',
+    password: ''
+  },
+  loginToggle: true,
   info: '',
-  header: {},
-  user: 'Michal'
+  header: {}
 }
 
 const devtools = process.env.NODE_ENV === 'test' ?

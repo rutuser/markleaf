@@ -1,10 +1,39 @@
-export const UPDATE_USER = 'updateUser'
+import axios from 'axios';
 
-export function updateUser(newUser) {
-    return {
+export const UPDATE_USER = 'updateUser';
+export const POST_USER = 'postUser';
+export const GET_USER = 'getUser';
+
+
+export const updateUser = (name, password) => dispatch => {
+    dispatch({
         type: UPDATE_USER,
         payload: {
-            user: newUser,
+            userName: name,
+            userPass: password
         }
-    }
+    });
+}
+
+export const postUser = (name, password) => dispatch => {
+    axios.post('/api/user', {
+        name: name,
+        password: password
+    })
+}
+
+export const getUser = (User) => dispatch => {
+    axios.get('/api/user')
+    .then(res => res.data.map(user => {
+        if(user == User) {
+            dispatch({
+                type: GET_USER,
+                payload: {
+                    userName: user.name,
+                    userPass: user.password
+                }
+            });
+        }
+    }))
+    .catch(err => () => console.log(err));
 }

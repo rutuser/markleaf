@@ -14,7 +14,6 @@ class User extends Component {
     };
 
     onUpdateUser() {
-        this.props.onUpdateUser('Mati');
     }
 
 
@@ -35,13 +34,13 @@ class User extends Component {
         );
     }
 }
-//{this.props.header.map(coords => coords.lat)}
+
 const mapStateToProps = state => ({
-    user: state.user
+    userName: state.user.name
 });
 
 const mapActionsToProps = {
-    onUpdateUser: updateUser
+
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(User);

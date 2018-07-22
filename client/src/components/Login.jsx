@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import * as LoginStyle from '../css/login.css'
 import { Label, FormGroup, ControlLabel, HelpBlock, FormControl, Button } from 'react-bootstrap';
-import * as FontAwesome from 'react-icons/lib/fa';
+import { connect } from 'react-redux';
+
+import { updateUser, postUser } from '../actions/user-actions';
+import { setFalseToggle } from '../actions/toggle-actions';
 
 const MainDiv = {
     width: '100%',
@@ -53,15 +56,22 @@ const button = {
 
 class Login extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            value: ''
-        }
+    onChangePass = e => {
+        this.props.onUpdateUser(this.props.userName, e.target.value);
     }
 
-    handler() {
-        console.log(this.state.value);
+    onChangeName = e => {
+        this.props.onUpdateUser(e.target.value, this.props.userPass);
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        if((this.props.userName || this.props.userPass) === '') {
+            alert('Enter a user and a password');
+        } else {
+            this.props.onPostUser(this.props.userName, this.props.userPass);
+            this.props.onSetToggle();
+        }
     }
 
     render() {
@@ -80,8 +90,7 @@ class Login extends Component {
                                     type="text"
                                     placeholder="Enter User"
                                     name='name'
-                                    value={this.state.value}
-                                    onChange={this.handler}
+                                    onChange={e => this.onChangeName(e)}
                                 />
                             </FormGroup>
                             <FormGroup
@@ -91,15 +100,16 @@ class Login extends Component {
                                     type="password"
                                     placeholder="Enter Password"
                                     name='password'
+                                    onChange={e => this.onChangePass(e)}
                                 />
                                 <HelpBlock>Validation is based on your first login</HelpBlock>
                             </FormGroup>
-                            <div style={button}>
-                                <Button bsStyle="primary" bsSize='large' block style={{padding: '0px', height: '40px'}}>
-                                    <input style={{width: '100%', background: 'transparent', border: 'transparent'}} type="submit" value='Log in'/>
+                        </form>
+                        <div style={button}>
+                                <Button onClick={e => this.onSubmit(e)} bsStyle="primary" bsSize='large' block style={{padding: '0px', height: '40px'}}>
+                                    Log in
                                 </Button>
                             </div>
-                        </form>
                     </div>
                     <div style={sentenceTwo}>
                         <p>© 2018 Car Seeker</p>
@@ -110,4 +120,16 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapActionToProps = {
+    onUpdateUser: updateUser,
+    onPostUser: postUser,
+    onSetToggle: setFalseToggle
+}
+
+const mapStateToProps = state => ({
+    userName: state.user.name,
+    userPass: state.user.password,
+    loginToggle: state.loginToggle
+})
+
+export default connect(mapStateToProps, mapActionToProps)(Login);

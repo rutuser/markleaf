@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { updateMapCoords, setDirections } from '../actions/map-actions';
 
 
+
 const MapWrapper = compose(
 	withProps({
 		googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA3ZJbujACSYHgvYWSeDxNvrgg_DqMVE7w&v=3.exp&libraries=geometry,drawing,places",
@@ -24,10 +25,10 @@ const MapWrapper = compose(
 			center={{ lat: props.lat, lng: props.lng }}
 			onClick={props.onMapClick}
 		>
-			{<Marker options={{icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/Map-Marker-Ball-Chartreuse-icon.png'}} position={{ lat: props.lat, lng: props.lng }} onClick={props.onMarkerClick} />}
+			{<Marker options={{ icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/Map-Marker-Ball-Chartreuse-icon.png' }} position={{ lat: props.lat, lng: props.lng }} onClick={props.onMarkerClick} />}
 
 			{<DirectionsRenderer directions={props.directions} />}
-			{props.trafficLayer && <TrafficLayer autoUpdate/>}
+			{props.trafficLayer && <TrafficLayer autoUpdate />}
 		</GoogleMap>
 	)
 

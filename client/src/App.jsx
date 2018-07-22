@@ -13,31 +13,19 @@ import store from './store/store';
 
 
 class App extends Component {
-	constructor() {
-		super();
-		this.state = {
-			modal: true
-		}
-	}
 	render() {
-		if (this.state.modal) {
-			return (
-				<Login />
-			);
-		} else {
-			return (
-				<Provider store={store}>
-					<Router>
-						<div>
-							<Header />
-							<Route exact path='/' component={map} />
-							<Route path='/User' component={User} />
-							<Route path='/Info' component={Info} />
-						</div>
-					</Router>
-				</Provider>
-			);
-		}
+		return (
+			<Provider store={store}>
+				<Router>
+					<div>
+						<Header />
+						<Route exact path='/' component={map} />
+						<Route path='/User' component={User} />
+						<Route path='/Info' component={Info} />
+					</div>
+				</Router>
+			</Provider>
+		);
 	}
 }
 
