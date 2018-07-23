@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import * as LoginStyle from '../css/login.css'
 import { FormGroup, HelpBlock, FormControl, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { updateUser, getUser } from '../actions/user-actions';
-import { setFalseLogInToggle } from '../actions/login-toggle-actions';
-import { setTrueSignInToggle } from '../actions/signin-toggle-actions';
+import { updateUser, postUser } from '../actions/user-actions';
+import { setTrueLogInToggle } from '../actions/login-toggle-actions';
+import { setFalseSignInToggle } from '../actions/signin-toggle-actions';
 
 const MainDiv = {
     width: '100%',
@@ -39,6 +38,13 @@ const Icon = {
     marginBottom: '30px'
 }
 
+const sentenceOne = {
+    textAlign: 'center',
+    fontSize: '30px',
+    marginTop: '10px',
+    fontFamily: 'sans-serif'
+}
+
 const sentenceTwo = {
     textAlign: 'center',
     color: '#c1c1c1',
@@ -66,23 +72,20 @@ class Login extends Component {
         e.preventDefault();
         if ((this.props.userName || this.props.userPass) === '') {
             alert('Enter a user and a password');
-        }
-        if (this.props.onGetUser(this.props.userName)) {
-            this.props.onSetToggle();
         } else {
-            alert('You are not Sign in... Please Sign in first');
+            this.props.onPostUser(this.props.userName, this.props.userPass);
         }
     }
 
-    onSignInToggle = () => {
-        this.props.onSetTrueSignInToggle();
-        this.props.onSetFalseLogInToggle();
+    onLoginToggle = () => {
+        this.props.onSetFalseSignInToggle();
+        this.props.onSetTrueLogInToggle();
     }
 
     render() {
         return (
             <div style={MainContainer}>
-                <Button onClick={this.onSignInToggle} bsStyle='info'>Log in</Button>
+                <Button onClick={this.onLoginToggle} bsStyle='info'>Log in</Button>
                 <div style={MainDiv}>
                     <div style={container}>
                         <div style={Icon}>
@@ -113,8 +116,8 @@ class Login extends Component {
                                 </FormGroup>
                             </form>
                             <div style={button}>
-                                <Button onClick={e => this.onSubmit(e)} bsStyle="primary" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
-                                    Log in
+                                <Button onClick={e => this.onSubmit(e)} bsStyle="danger" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
+                                    Sign in
                                 </Button>
                             </div>
                         </div>
@@ -130,9 +133,9 @@ class Login extends Component {
 
 const mapActionToProps = {
     onUpdateUser: updateUser,
-    onGetUser: getUser,
-    onSetTrueSignInToggle: setTrueSignInToggle,
-    onSetFalseLogInToggle: setFalseLogInToggle
+    onPostUser: postUser,
+    onSetTrueLogInToggle: setTrueLogInToggle,
+    onSetFalseSignInToggle: setFalseSignInToggle
 }
 
 const mapStateToProps = state => ({

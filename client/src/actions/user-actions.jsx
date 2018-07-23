@@ -23,9 +23,11 @@ export const postUser = (name, password) => dispatch => {
 }
 
 export const getUser = (User) => dispatch => {
+    var pass = false;
     axios.get('/api/user')
     .then(res => res.data.map(user => {
-        if(user == User) {
+        if(user === User) {
+            pass = true;
             dispatch({
                 type: GET_USER,
                 payload: {
@@ -36,4 +38,5 @@ export const getUser = (User) => dispatch => {
         }
     }))
     .catch(err => () => console.log(err));
+    return pass;
 }
