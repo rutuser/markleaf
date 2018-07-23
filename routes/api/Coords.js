@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
 // @access  Public
 router.post('/', (req, res) => {
   const newCoords = new Coords({
+    user: req.body.user,
     lat: req.body.lat,
     lng: req.body.lng
   });

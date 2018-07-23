@@ -5,6 +5,7 @@ export const UPDATE_LOCATION = 'updateMyLocation';
 export const GET_COORDS = 'getCoords';
 export const SET_DIRECTIONS = 'setDirections';
 export const SET_TRAFFIC = 'setTraffic';
+export const DIRECTION_TOGGLE = 'directionToggle';
 
 
 
@@ -29,6 +30,15 @@ export const setTrafficLawyer = (trafficLawyer) => dispatch => {
     });
 }
 
+export const setDirectionToggle = (directionToggle) => dispatch => {
+    dispatch({
+        type: DIRECTION_TOGGLE,
+        payload: {
+            directionToggle: !directionToggle
+        }
+    });
+}
+
 
 export const getLocation = () => dispatch => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -44,24 +54,27 @@ export const getLocation = () => dispatch => {
 }
 
 
-export const getCoords = () => dispatch => {
+export const getCoords = (userName) => dispatch => {
     axios.get('/api/coords')
         .then(res => res.data.map(coords => {
-            dispatch({
-                type: GET_COORDS,
-                payload: {
-                    lat: coords.lat,
-                    lng: coords.lng,
-                    zoom: 15
-                }
-            })
+            if(coords.user === userName) {
+                dispatch({
+                    type: GET_COORDS,
+                    payload: {
+                        lat: coords.lat,
+                        lng: coords.lng,
+                        zoom: 15
+                    }
+                });
+            }
         }))
         .catch(err => () => console.log(err));
 }
 
-export const postCoords = () => dispatch => {
+export const postCoords = (userName) => dispatch => {
     navigator.geolocation.getCurrentPosition(position => {
         axios.post('/api/coords', {
+            user: userName,
             lat: position.coords.latitude,
             lng: position.coords.longitude
         });

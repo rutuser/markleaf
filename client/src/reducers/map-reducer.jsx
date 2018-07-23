@@ -3,6 +3,7 @@ import { UPDATE_LOCATION } from '../actions/map-actions';
 import { GET_COORDS } from '../actions/map-actions';
 import { SET_DIRECTIONS } from '../actions/map-actions';
 import { SET_TRAFFIC } from '../actions/map-actions';
+import { DIRECTION_TOGGLE } from '../actions/map-actions';
 
 
 export default function mapReducer(state = {}, action) {
@@ -37,6 +38,11 @@ export default function mapReducer(state = {}, action) {
       return {
         ...state,
         trafficLawyer: action.payload.trafficLawyer
+      }
+    case DIRECTION_TOGGLE:
+      return {
+        ...state,
+        directionToggle: action.payload.directionToggle
       }
     default:
       return state;

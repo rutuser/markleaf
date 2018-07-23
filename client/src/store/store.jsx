@@ -11,7 +11,8 @@ const initialState = {
     lng: 0,
     zoom: 8,
     directions: {},
-    trafficLawyer: false
+    trafficLawyer: false,
+    directionToggle: true
   },
   user: {
     name: '',

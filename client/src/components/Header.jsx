@@ -3,10 +3,11 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import * as HeaderStyle from '../css/header.css';
 import { Link } from 'react-router-dom';
 
-import Login from '../components/Login';
-
 import { connect } from 'react-redux';
-import { updateMapCoords, getLocation, postCoords, getCoords, setDirections, setTrafficLawyer } from '../actions/map-actions';
+import {
+    updateMapCoords, getLocation, postCoords, getCoords, setDirections, setTrafficLawyer,
+    setDirectionToggle
+} from '../actions/map-actions';
 
 
 class Header extends Component {
@@ -19,15 +20,16 @@ class Header extends Component {
         this.onGetLocation = this.onGetLocation.bind(this);
         this.onSetRoute = this.onSetRoute.bind(this);
         this.onSetTrafficLawyer = this.onSetTrafficLawyer.bind(this);
+        this.onSetDirectionToggle = this.onSetDirectionToggle.bind(this);
     }
 
     onUpdateCoords() {
         this.props.onUpdateLocation();
-        this.props.postNewCoords();
+        this.props.postNewCoords(this.props.userName);
     }
 
     onGetCoords() {
-        this.props.getNewCoords();
+        this.props.getNewCoords(this.props.userName);
     }
 
     onGetLocation() {
@@ -45,48 +47,49 @@ class Header extends Component {
         this.props.onTrafficLawyer(this.props.trafficLawyer);
     }
 
+    onSetDirectionToggle() {
+        this.props.onDirectionToggle(this.props.directionToggle);
+    }
+
     componentDidMount() { }
 
     render() {
-        if (this.props.loginToggle) {
-            return <Login />
-        } else {
-            return (
-                <Navbar inverse collapseOnSelect className={HeaderStyle.Navbar}>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            <a>Where is your Car</a>
-                        </Navbar.Brand>
-                        <Navbar.Toggle />
-                    </Navbar.Header>
-                    <Navbar.Collapse>
-                        <Nav>
-                            <NavItem eventKey={1} componentClass={Link} href="/" to="/">
-                                Home
+        return (
+            <Navbar inverse collapseOnSelect className={HeaderStyle.Navbar}>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a>Car Seeker</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <NavItem eventKey={1}>
+                            {this.props.userName}
                         </NavItem>
-                            <NavItem eventKey={1} componentClass={Link} href="/User" to="/User">
-                                {this.props.userName}
+                        <NavItem eventKey={1} componentClass={Link} href="/" to="/">
+                            Home
                         </NavItem>
-                            <NavDropdown eventKey={3} title="Help" id="basic-nav-dropdown">
-                                <MenuItem eventKey={3.1} target='_blank' href="https://twitter.com/car_where">Status</MenuItem>
-                                <MenuItem eventKey={3.2} componentClass={Link} href="/Info" to='/Info'>Info</MenuItem>
-                            </NavDropdown>
-                        </Nav>
-                        <Nav pullRight>
-                            <NavItem onClick={this.onUpdateCoords} eventKey={1} href="#">
-                                Park!
+                        <NavDropdown eventKey={3} title="Help" id="basic-nav-dropdown">
+                            <MenuItem eventKey={3.1} target='_blank' href="https://twitter.com/car_where">Status</MenuItem>
+                            <MenuItem eventKey={3.2} componentClass={Link} href="/Info" to='/Info'>Info</MenuItem>
+                        </NavDropdown>
+                    </Nav>
+                    <Nav pullRight>
+                        <NavItem onClick={this.onUpdateCoords} eventKey={1} href="#">
+                            Park!
                 </NavItem>
-                            <NavDropdown eventKey={4} title="Options" id="basic-nav-dropdown">
-                                <MenuItem onClick={this.onGetLocation} eventKey={4.1}>My Location</MenuItem>
-                                <MenuItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </MenuItem>
-                                <MenuItem onClick={this.onSetRoute} eventKey={4.3}>G0! </MenuItem>
-                                <MenuItem onClick={this.onSetTrafficLawyer} eventKey={4.4}>Traffic Lawyer </MenuItem>
-                            </NavDropdown>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-            );
-        }
+                        <NavDropdown eventKey={4} title="Options" id="basic-nav-dropdown">
+                            <MenuItem onClick={this.onGetLocation} eventKey={4.1}>My Location</MenuItem>
+                            <MenuItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </MenuItem>
+                            <MenuItem onClick={this.onSetRoute} eventKey={4.3}>G0! </MenuItem>
+                            <MenuItem onClick={this.onSetDirectionToggle} eventKey={4.4}>ST0P </MenuItem>
+                            <MenuItem onClick={this.onSetTrafficLawyer} eventKey={4.5}>Traffic Lawyer </MenuItem>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        );
     }
 }
 
@@ -96,8 +99,8 @@ const mapStateToProps = state => ({
     mapZoom: state.map.zoom,
     map: state.map,
     trafficLawyer: state.map.trafficLawyer,
-    loginToggle: state.loginToggle,
-    userName: state.user.name
+    userName: state.user.name,
+    directionToggle: state.map.directionToggle
 });
 
 const mapActionsToProps = {
@@ -106,7 +109,8 @@ const mapActionsToProps = {
     postNewCoords: postCoords,
     getNewCoords: getCoords,
     onSetDirection: setDirections,
-    onTrafficLawyer: setTrafficLawyer
+    onTrafficLawyer: setTrafficLawyer,
+    onDirectionToggle: setDirectionToggle
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Header);

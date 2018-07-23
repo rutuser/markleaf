@@ -27,14 +27,14 @@ const MapWrapper = compose(
 		>
 			{<Marker options={{ icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/Map-Marker-Ball-Chartreuse-icon.png' }} position={{ lat: props.lat, lng: props.lng }} onClick={props.onMarkerClick} />}
 
-			{<DirectionsRenderer directions={props.directions} />}
+			{props.directionToggle && <DirectionsRenderer directions={props.directions} />}
 			{props.trafficLayer && <TrafficLayer autoUpdate />}
 		</GoogleMap>
 	)
 
 
 
-class App extends Component {
+class Map extends Component {
 
 	constructor(props) {
 		super(props);
@@ -44,7 +44,7 @@ class App extends Component {
 	}
 
 	onMapClick() {
-		//this.props.onUpdateCoords(48.864716, 2.349014)
+		this.props.onUpdateCoords(48.864716, 2.349014)
 	}
 
 	onMarkerClick() {
@@ -61,6 +61,7 @@ class App extends Component {
 				onMarkerClick={this.onMarkerClick}
 				directions={this.props.mapDirections}
 				trafficLayer={this.props.trafficLawyer}
+				directionToggle={this.props.directionToggle}
 			/>
 
 		)
@@ -78,7 +79,8 @@ const mapStateToProps = state => ({
 	mapZoom: state.map.zoom,
 	mapDirections: state.map.directions,
 	map: state.map,
-	trafficLawyer: state.map.trafficLawyer
+	trafficLawyer: state.map.trafficLawyer,
+	directionToggle: state.map.directionToggle
 })
 
-export default connect(mapStateToProps, mapActionsToProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(Map);

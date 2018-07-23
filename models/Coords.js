@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const CoordsSchema = new Schema({
+  user: {
+    type: String,
+    required: false
+  },
   lat: {
     type: Number,
     required: false

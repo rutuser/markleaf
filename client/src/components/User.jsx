@@ -20,16 +20,11 @@ class User extends Component {
     render() {
         return (
             <Jumbotron>
-                <h1>USER</h1>
+                <h4>{this.props.userName}</h4>
                 <p>
                     This is a simple hero unit, a simple jumbotron-style component for calling
                     extra attention to featured content or information.
         </p>
-                <p>
-                    <Button onClick={this.onUpdateUser} bsStyle="primary">Update User</Button>
-                    {this.props.user}
-                    
-                </p>
             </Jumbotron>
         );
     }
