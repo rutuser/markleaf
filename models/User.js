@@ -11,6 +11,10 @@ const UserSchema = new Schema({
     type: String,
     required: false
   },
+  signedIn: {
+    type: Boolean,
+    required: false
+  },
   date: {
     type: Date,
     default: Date.now
