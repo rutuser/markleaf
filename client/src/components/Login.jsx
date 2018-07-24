@@ -3,12 +3,10 @@ import * as LoginStyle from '../css/login.css'
 import { FormGroup, HelpBlock, FormControl, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { updateUser, getUser } from '../actions/user-actions';
-import { setFalseLogInToggle } from '../actions/login-toggle-actions';
-import { setTrueSignInToggle } from '../actions/signin-toggle-actions';
+import { updateUser, getUser, postUser } from '../actions/user-actions';
 
 const MainDiv = {
-    width: '100%',
+    width: '100vw',
     height: '100vh',
     margin: 'auto',
     display: 'flex',
@@ -46,9 +44,21 @@ const sentenceTwo = {
     fontFamily: 'sans-serif'
 }
 
+const or = {
+    margin: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '7px',
+    fontFamily: 'sans-serif',
+    fontSize: '15px'
+}
+
 const button = {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '10px'
 }
 
 
@@ -62,65 +72,69 @@ class Login extends Component {
         this.props.onUpdateUser(e.target.value, this.props.userPass);
     }
 
-    onSubmit = (e) => {
+    onSubmitLogin = (e) => {
         e.preventDefault();
         if ((this.props.userName || this.props.userPass) === '') {
             alert('Enter a user and a password');
         }
-        if (this.props.onGetUser(this.props.userName)) {
-            this.props.onSetToggle();
-        } else {
-            alert('You are not Sign in... Please Sign in first');
-        }
+        this.props.onGetUser(this.props.userName, this.props.userPass);
     }
 
-    onSignInToggle = () => {
-        this.props.onSetTrueSignInToggle();
-        this.props.onSetFalseLogInToggle();
+    onSubmitSignin = (e) => {
+        e.preventDefault();
+        if ((this.props.userName || this.props.userPass) === '') {
+            alert('Enter a user and a password');
+        } else {
+            this.props.onPostUser(this.props.userName, this.props.userPass);
+            alert('Your just signed in!');
+        }
     }
 
     render() {
         return (
-            <div style={MainContainer}>
-                <Button onClick={this.onSignInToggle} bsStyle='info'>Log in</Button>
-                <div style={MainDiv}>
-                    <div style={container}>
-                        <div style={Icon}>
-                            L
+            <div style={MainDiv}>
+                <div style={container}>
+                    <div style={Icon}>
+                        L
                     </div>
-                        <div>
-                            <form>
-                                <FormGroup
-                                    controlId="formBasicText"
-                                >
-                                    <FormControl
-                                        type="text"
-                                        placeholder="Enter User"
-                                        name='name'
-                                        onChange={e => this.onChangeName(e)}
-                                    />
-                                </FormGroup>
-                                <FormGroup
-                                    controlId="formBasicText"
-                                >
-                                    <FormControl
-                                        type="password"
-                                        placeholder="Enter Password"
-                                        name='password'
-                                        onChange={e => this.onChangePass(e)}
-                                    />
-                                    <HelpBlock>Validation is based on your first login</HelpBlock>
-                                </FormGroup>
-                            </form>
-                            <div style={button}>
-                                <Button onClick={e => this.onSubmit(e)} bsStyle="primary" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
-                                    Log in
+                    <div>
+                        <form>
+                            <FormGroup
+                                controlId="formBasicText"
+                            >
+                                <FormControl
+                                    type="text"
+                                    placeholder="Enter User"
+                                    name='name'
+                                    onChange={e => this.onChangeName(e)}
+                                />
+                            </FormGroup>
+                            <FormGroup
+                                controlId="formBasicText"
+                            >
+                                <FormControl
+                                    type="password"
+                                    placeholder="Enter Password"
+                                    name='password'
+                                    onChange={e => this.onChangePass(e)}
+                                />
+                                <HelpBlock>Validation is based on your first login</HelpBlock>
+                            </FormGroup>
+                        </form>
+                        <div style={button}>
+                            <Button onClick={e => this.onSubmitLogin(e)} bsStyle="primary" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
+                                Log in
                                 </Button>
+                            <div style={or}>
+                                <div> or </div>
                             </div>
+                            <Button onClick={e => this.onSubmitSignin(e)} bsStyle="danger" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
+                                Sign in
+                                </Button>
                         </div>
-                        <div style={sentenceTwo}>
-                            <p>© 2018 Car Seeker</p>
-                        </div>
+                    </div>
+                    <div style={sentenceTwo}>
+                        <p>© 2018 Car Seeker</p>
                     </div>
                 </div>
             </div>
@@ -131,14 +145,13 @@ class Login extends Component {
 const mapActionToProps = {
     onUpdateUser: updateUser,
     onGetUser: getUser,
-    onSetTrueSignInToggle: setTrueSignInToggle,
-    onSetFalseLogInToggle: setFalseLogInToggle
+    onPostUser: postUser
 }
 
 const mapStateToProps = state => ({
     userName: state.user.name,
     userPass: state.user.password,
-    loginToggle: state.loginToggle
+    userSignin: state.user.signedIn
 })
 
 export default connect(mapStateToProps, mapActionToProps)(Login);

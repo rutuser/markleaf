@@ -5,14 +5,14 @@ import { compose, withProps } from "recompose"
 
 import { connect } from 'react-redux';
 
-import { updateMapCoords, setDirections } from '../actions/map-actions';
+import { updateMapCoords, setDirections, getLocation } from '../actions/map-actions';
 
 
 
 const MapWrapper = compose(
 	withProps({
 		googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA3ZJbujACSYHgvYWSeDxNvrgg_DqMVE7w&v=3.exp&libraries=geometry,drawing,places",
-		loadingElement: <div style={{ height: `100%` }} />,
+		loadingElement: <div style={{ height: `vmax` }} />,
 		containerElement: <div style={{ height: `94vh` }} />,
 		mapElement: <div style={{ height: `100%` }} />,
 	}),
@@ -39,16 +39,11 @@ class Map extends Component {
 	constructor(props) {
 		super(props);
 
-		this.onMapClick = this.onMapClick.bind(this);
-		this.onMarkerClick = this.onMarkerClick.bind(this);
 	}
 
-	onMapClick() {
-		this.props.onUpdateCoords(48.864716, 2.349014)
-	}
 
-	onMarkerClick() {
-
+	componentDidMount() {
+		this.props.onGetLocation();
 	}
 
 	render() {
@@ -70,7 +65,8 @@ class Map extends Component {
 
 const mapActionsToProps = {
 	onUpdateCoords: updateMapCoords,
-	onSetDirections: setDirections
+	onSetDirections: setDirections,
+	onGetLocation: getLocation
 }
 
 const mapStateToProps = state => ({

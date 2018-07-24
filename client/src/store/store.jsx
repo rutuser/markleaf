@@ -16,10 +16,9 @@ const initialState = {
   },
   user: {
     name: '',
-    password: ''
+    password: '',
+    signedIn: false
   },
-  logInToggle: false,
-  signInToggle: true,
   info: '',
   header: {}
 }

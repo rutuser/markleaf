@@ -18,25 +18,24 @@ export const updateUser = (name, password) => dispatch => {
 export const postUser = (name, password) => dispatch => {
     axios.post('/api/user', {
         name: name,
-        password: password
+        password: password,
+        signedIn: true
     })
 }
 
-export const getUser = (User) => dispatch => {
-    var pass = false;
+export const getUser = (User, UserPass) => dispatch => {
     axios.get('/api/user')
     .then(res => res.data.map(user => {
-        if(user === User) {
-            pass = true;
+        if((user.name === User) && (user.password === UserPass)) {
             dispatch({
                 type: GET_USER,
                 payload: {
                     userName: user.name,
-                    userPass: user.password
+                    userPass: user.password,
+                    signedIn: user.signedIn
                 }
             });
         }
     }))
     .catch(err => () => console.log(err));
-    return pass;
-}
+    }

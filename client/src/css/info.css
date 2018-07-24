@@ -1,0 +1,10 @@
+
+p {
+   display: flex;
+   flex-direction: column;
+   margin: auto;
+}
+
+.mainDiv {
+    padding: 20px;
+}

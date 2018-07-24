@@ -6,22 +6,21 @@ import map from './components/Map';
 import User from './components/User';
 import Info from './components/Info';
 import Login from './components/Login';
-import Signin from './components/Signin';
+import ModalContainer from './components/Modal';
 
 import { connect } from 'react-redux';
 
 
 class MainContainer extends Component {
 	render() {
-        if (this.props.signInToggle) {
-			return <Signin />
-		} else if(this.props.logInToggle) {
+		 if(!this.props.signedIn) {
             return <Login />
         } else {
 			return (
 				<Router>
 					<div>
 						<Header />
+						<ModalContainer />
 						<Route exact path='/' component={map} />
 						<Route path='/User' component={User} />
 						<Route path='/Info' component={Info} />
@@ -33,8 +32,7 @@ class MainContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    logInToggle: state.logInToggle,
-    signInToggle: state.signInToggle
+    signedIn: state.user.signedIn
 });
 
 

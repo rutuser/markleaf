@@ -55,18 +55,15 @@ class Header extends Component {
 
     render() {
         return (
-            <Navbar inverse collapseOnSelect className={HeaderStyle.Navbar}>
+            <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a>Car Seeker</a>
+                         {this.props.userName}
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem eventKey={1}>
-                            {this.props.userName}
-                        </NavItem>
                         <NavItem eventKey={1} componentClass={Link} href="/" to="/">
                             Home
                         </NavItem>
@@ -79,13 +76,11 @@ class Header extends Component {
                         <NavItem onClick={this.onUpdateCoords} eventKey={1} href="#">
                             Park!
                 </NavItem>
-                        <NavDropdown eventKey={4} title="Options" id="basic-nav-dropdown">
-                            <MenuItem onClick={this.onGetLocation} eventKey={4.1}>My Location</MenuItem>
-                            <MenuItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </MenuItem>
-                            <MenuItem onClick={this.onSetRoute} eventKey={4.3}>G0! </MenuItem>
-                            <MenuItem onClick={this.onSetDirectionToggle} eventKey={4.4}>ST0P </MenuItem>
-                            <MenuItem onClick={this.onSetTrafficLawyer} eventKey={4.5}>Traffic Lawyer </MenuItem>
-                        </NavDropdown>
+                            <NavItem onClick={this.onGetLocation} eventKey={4.1}>My Location</NavItem>
+                            <NavItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </NavItem>
+                            <NavItem onClick={this.onSetRoute} eventKey={4.3}>G0! </NavItem>
+                            <NavItem onClick={this.onSetDirectionToggle} eventKey={4.4}>ST0P </NavItem>
+                            <NavItem onClick={this.onSetTrafficLawyer} eventKey={4.5}>Traffic Lawyer </NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

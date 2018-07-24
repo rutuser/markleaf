@@ -13,7 +13,8 @@ export default function userReducer(state = {}, action) {
             return {
                 ...state,
                 name: action.payload.userName,
-                password: action.payload.userPass
+                password: action.payload.userPass,
+                signedIn: action.payload.signedIn
             }
         default:
             return state;
