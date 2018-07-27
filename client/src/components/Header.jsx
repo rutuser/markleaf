@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import * as HeaderStyle from '../css/header.css'
 import { connect } from 'react-redux';
 import {
     updateMapCoords, getLocation, postCoords, getCoords, setDirections, setTrafficLawyer,
@@ -62,7 +62,7 @@ class Header extends Component {
 
     render() {
         return (
-            <Navbar inverse collapseOnSelect fixedTop>
+            <Navbar inverse collapseOnSelect className={HeaderStyle}>
                 <Navbar.Header>
                     <Navbar.Brand>
                         {this.props.userName}

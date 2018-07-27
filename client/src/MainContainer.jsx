@@ -38,6 +38,7 @@ class MainContainer extends Component {
 						<Header />
 						<ModalContainer />
 						<Route exact path='/' component={map} />
+
 						<Route path='/User' component={User} />
 						<Route path='/Info' component={Info} />
 						<SwipeableTemporaryDrawer />

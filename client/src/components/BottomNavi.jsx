@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
+import '../css/bottomNavi.css';
+
 import { connect } from 'react-redux';
 
 import { setToggle } from '../actions/toggle-drawer-actions';
@@ -14,11 +16,16 @@ class SwipeableTemporaryDrawer extends React.Component {
     constructor() {
         super(); 
 
-        this.toggleDrawerHandler = this.toggleDrawerHandler.bind(this);
+        this.toggleDrawerFalse = this.toggleDrawerFalse.bind(this);
+        this.toggleDrawerTrue = this.toggleDrawerTrue.bind(this);
     }
 
-    toggleDrawerHandler() {
+    toggleDrawerFalse() {
         this.props.onSetToggle(false);
+    }
+
+    toggleDrawerTrue() {
+      this.props.onSetToggle(true);
     }
 
 
@@ -29,21 +36,20 @@ class SwipeableTemporaryDrawer extends React.Component {
         <SwipeableDrawer
           anchor="bottom"
           open={this.props.toggleDrawer}
-          onClose={this.toggleDrawerHandler}
-          onOpen={this.props.onSetToggle(false)}
+          onClose={this.toggleDrawerFalse}
+          onOpen={this.toggleDrawerTrue}
         >
           <div
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawerHandler}
-            onKeyDown={this.props.onSetToggle(this.props.toggleDrawer)}
-            style={{background: 'transparent'}}
+            onClick={this.toggleDrawerFalse}
+            onKeyDown={this.toggleDrawertrue}
           >
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(221, 221, 221, 0.1)'}}>
-              <div style={{width: '50px', height: '50px'}}>Uno</div>
-              <div style={{width: '50px', height: '50px'}}>Dos</div>
-              <div style={{width: '50px', height: '50px'}}>Tres</div>
-              <div style={{width: '50px', height: '50px'}}>Cuatro</div>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <div className='button'>Uno</div>
+              <div className='button'>Dos</div>
+              <div className='button'>Tres</div>
+              <div className='button'>Cuatro</div>
           </div>
           </div>
         </SwipeableDrawer>
