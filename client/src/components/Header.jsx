@@ -1,6 +1,7 @@
+import axios from 'axios';
+
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import * as HeaderStyle from '../css/header.css';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -24,7 +25,7 @@ class Header extends Component {
     }
 
     onUpdateCoords() {
-        this.props.onUpdateLocation();
+        this.props.onUpdateLocation(12);
         this.props.postNewCoords(this.props.userName);
     }
 
@@ -33,13 +34,19 @@ class Header extends Component {
     }
 
     onGetLocation() {
-        this.props.onUpdateLocation();
+        this.props.onUpdateLocation(11);
     }
 
     onSetRoute() {
         navigator.geolocation.getCurrentPosition(position => {
-            this.props.onSetDirection(position.coords.latitude, position.coords.longitude,
-                this.props.mapLat, this.props.mapLng);
+            axios.get('/api/coords')
+                .then(res => res.data.map(coords => {
+                    if (coords.user === this.props.userName) {
+                        this.props.onSetDirection(position.coords.latitude + 0.00001, position.coords.longitude + 0.00001,
+                            coords.lat, coords.lng);
+                    }
+                }))
+                .catch(err => console.log(err));
         });
     }
 
@@ -55,10 +62,10 @@ class Header extends Component {
 
     render() {
         return (
-            <Navbar inverse collapseOnSelect>
+            <Navbar inverse collapseOnSelect fixedTop>
                 <Navbar.Header>
                     <Navbar.Brand>
-                         {this.props.userName}
+                        {this.props.userName}
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -76,11 +83,11 @@ class Header extends Component {
                         <NavItem onClick={this.onUpdateCoords} eventKey={1} href="#">
                             Park!
                 </NavItem>
-                            <NavItem onClick={this.onGetLocation} eventKey={4.1}>My Location</NavItem>
-                            <NavItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </NavItem>
-                            <NavItem onClick={this.onSetRoute} eventKey={4.3}>G0! </NavItem>
-                            <NavItem onClick={this.onSetDirectionToggle} eventKey={4.4}>ST0P </NavItem>
-                            <NavItem onClick={this.onSetTrafficLawyer} eventKey={4.5}>Traffic Lawyer </NavItem>
+                        <NavItem onClick={this.onGetLocation} eventKey={4.1}>My Location</NavItem>
+                        <NavItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </NavItem>
+                        <NavItem onClick={this.onSetRoute} eventKey={4.3}>G0! </NavItem>
+                        <NavItem onClick={this.onSetDirectionToggle} eventKey={4.4}>ST0P </NavItem>
+                        <NavItem onClick={this.onSetTrafficLawyer} eventKey={4.5}>Traffic Lawyer </NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

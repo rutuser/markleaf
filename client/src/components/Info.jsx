@@ -35,7 +35,7 @@ class Info extends Component {
                 </p>
                     <p>
                         G0 / ST0P: these two are the Direction actions. The G0 method will allow You to set a direction from your
-                            location to your car location. The ST0P method will stop the Direction action.
+                            location to your car. The ST0P method will stop the Direction action.
                             Consider having the My location and Park methods activated first, otherwise the Direction render wont work.
         
                 </p>

@@ -40,14 +40,14 @@ export const setDirectionToggle = (directionToggle) => dispatch => {
 }
 
 
-export const getLocation = () => dispatch => {
+export const getLocation = (zoom) => dispatch => {
     navigator.geolocation.getCurrentPosition(position => {
         dispatch({
             type: UPDATE_LOCATION,
             payload: {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
-                zoom: 11
+                zoom: zoom
             }
         });
     });

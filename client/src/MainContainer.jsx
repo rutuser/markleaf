@@ -7,15 +7,31 @@ import User from './components/User';
 import Info from './components/Info';
 import Login from './components/Login';
 import ModalContainer from './components/Modal';
+import SwipeableTemporaryDrawer from './components/BottomNavi';
+
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 
 import { connect } from 'react-redux';
 
+import { setToggle } from './actions/toggle-drawer-actions';
+
 
 class MainContainer extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.toggleHandler = this.toggleHandler.bind(this);
+	}
+
+	toggleHandler() {
+		this.props.onSetToggle(!this.props.toggleDrawer);
+	}
+
 	render() {
-		 if(!this.props.signedIn) {
-            return <Login />
-        } else {
+		if (!this.props.signedIn) {
+			return <Login />
+		} else {
 			return (
 				<Router>
 					<div>
@@ -24,6 +40,15 @@ class MainContainer extends Component {
 						<Route exact path='/' component={map} />
 						<Route path='/User' component={User} />
 						<Route path='/Info' component={Info} />
+						<SwipeableTemporaryDrawer />
+						<button style={{
+							background: 'transparent',
+							border: '0px',
+							height: '40px',
+							position: 'absolute',
+							bottom: '0px',
+							right: '47vw'
+						}} onClick={this.toggleHandler} ><KeyboardArrowUp fontSize={10} /></button>
 					</div>
 				</Router>
 			);
@@ -32,8 +57,13 @@ class MainContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    signedIn: state.user.signedIn
+	signedIn: state.user.signedIn,
+	toggleDrawer: state.toggleDrawer
 });
 
+const mapActionsToProps = {
+	onSetToggle: setToggle
+}
 
-export default connect(mapStateToProps)(MainContainer);
+
+export default connect(mapStateToProps, mapActionsToProps)(MainContainer);

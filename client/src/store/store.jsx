@@ -14,6 +14,7 @@ const initialState = {
     trafficLawyer: false,
     directionToggle: true
   },
+  toggleDrawer: false,
   user: {
     name: '',
     password: '',

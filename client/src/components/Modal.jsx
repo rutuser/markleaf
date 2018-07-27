@@ -33,7 +33,7 @@ class ModalContainer extends React.Component {
             </Modal.Header>
             <Modal.Body>
               <h3>Welcome to Markleaf</h3>
-              <p>This web app will help You to find your car when You run out of memory!</p>
+              <p>Here we are to find your car when You run out of memory!</p>
               <p>Click in the "Help / Info" section to read more about the methods / funcionality
                   of the page.
               </p>
