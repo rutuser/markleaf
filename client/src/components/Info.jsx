@@ -23,12 +23,22 @@ class Info extends Component {
                             Another action You will find is the Find section your are in right now :)
                 </p>
                     <p>
-                        Function seccion
+                        HEADER SECTION
                 </p>
                     <p>
                         Park: this action will set your car position in our map/database. You have to press this one
                             when You park your car.
                 </p>
+                <p>
+                        Where did I park?: this one will let You know where did You park the car.
+                </p>
+                    <p>
+                        BOTTOM NAVI SECTION
+                    </p>
+                    <p>
+                        In the app You can acces to the Navi bar placed in the bottom of the page, swiping up your finger from the footer.
+                        In this section You will see: 
+                    </p>
                     <p>
                         My location: this action will allow You to see whatever your location is at the moment.
         

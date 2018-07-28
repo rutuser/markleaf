@@ -49,7 +49,7 @@ class MainContainer extends Component {
 							position: 'absolute',
 							bottom: '0px',
 							right: '47vw'
-						}} onClick={this.toggleHandler} ><KeyboardArrowUp fontSize={10} /></button>
+						}} onClick={this.toggleHandler} ><KeyboardArrowUp style={{color: '#eee'}} /></button>
 					</div>
 				</Router>
 			);

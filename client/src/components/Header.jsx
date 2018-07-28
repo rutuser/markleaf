@@ -82,12 +82,10 @@ class Header extends Component {
                     <Nav pullRight>
                         <NavItem onClick={this.onUpdateCoords} eventKey={1} href="#">
                             Park!
-                </NavItem>
-                        <NavItem onClick={this.onGetLocation} eventKey={4.1}>My Location</NavItem>
-                        <NavItem onClick={this.onGetCoords} eventKey={4.2}>Where did I park? </NavItem>
-                        <NavItem onClick={this.onSetRoute} eventKey={4.3}>G0! </NavItem>
-                        <NavItem onClick={this.onSetDirectionToggle} eventKey={4.4}>ST0P </NavItem>
-                        <NavItem onClick={this.onSetTrafficLawyer} eventKey={4.5}>Traffic Lawyer </NavItem>
+                        </NavItem>
+                        <NavItem onClick={this.onGetCoords} eventKey={4.2}>
+                            Where did I park?
+                         </NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -109,10 +107,7 @@ const mapActionsToProps = {
     onUpdateCoords: updateMapCoords,
     onUpdateLocation: getLocation,
     postNewCoords: postCoords,
-    getNewCoords: getCoords,
-    onSetDirection: setDirections,
-    onTrafficLawyer: setTrafficLawyer,
-    onDirectionToggle: setDirectionToggle
+    getNewCoords: getCoords
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Header);

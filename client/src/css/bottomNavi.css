@@ -1,6 +1,15 @@
 .button {
     width: 170px;
-    height: 80px;
-    border: 1px solid black;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 0px;
 }
+
+p {
+    margin: 0px;
+}
+
 
