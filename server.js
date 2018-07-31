@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const db = require('./config/apiKey').mongoURI;
 
@@ -10,6 +11,9 @@ const app = express();
 
 //BodyParser middleware
 app.use(bodyParser.json());
+
+//Cors middleware
+app.use(cors());
 
 mongoose.connect(db, { useNewUrlParser: true })
     .then((() => console.log('Mongoose connected...')))
