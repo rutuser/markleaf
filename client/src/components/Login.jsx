@@ -129,7 +129,7 @@ class Login extends Component {
                                 <div> or </div>
                             </div>
                             <Button onClick={e => this.onSubmitSignin(e)} bsStyle="danger" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
-                                Sign in
+                                Sign up
                                 </Button>
                         </div>
                     </div>

@@ -11,7 +11,7 @@ import { updateMapCoords, setDirections, getLocation } from '../actions/map-acti
 
 const MapWrapper = compose(
 	withProps({
-		googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA3ZJbujACSYHgvYWSeDxNvrgg_DqMVE7w&v=3.exp&libraries=geometry,drawing,places",
+		googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCH7NKFsK_MXS6urT3l8fYuYB9EDHPcHXU&v=3.exp&libraries=geometry,drawing,places",
 		loadingElement: <div style={{ height: `100vh`}} />,
 		containerElement: <div style={{ height: `92vh` }} />,
 		mapElement: <div style={{ height: `100%` }} />,

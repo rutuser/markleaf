@@ -18,10 +18,6 @@ class Header extends Component {
 
         this.onUpdateCoords = this.onUpdateCoords.bind(this);
         this.onGetCoords = this.onGetCoords.bind(this);
-        this.onGetLocation = this.onGetLocation.bind(this);
-        this.onSetRoute = this.onSetRoute.bind(this);
-        this.onSetTrafficLawyer = this.onSetTrafficLawyer.bind(this);
-        this.onSetDirectionToggle = this.onSetDirectionToggle.bind(this);
     }
 
     onUpdateCoords() {
@@ -33,32 +29,10 @@ class Header extends Component {
         this.props.getNewCoords(this.props.userName);
     }
 
-    onGetLocation() {
-        this.props.onUpdateLocation(11);
-    }
 
-    onSetRoute() {
-        navigator.geolocation.getCurrentPosition(position => {
-            axios.get('/api/coords')
-                .then(res => res.data.map(coords => {
-                    if (coords.user === this.props.userName) {
-                        this.props.onSetDirection(position.coords.latitude + 0.00001, position.coords.longitude + 0.00001,
-                            coords.lat, coords.lng);
-                    }
-                }))
-                .catch(err => console.log(err));
-        });
-    }
 
-    onSetTrafficLawyer() {
-        this.props.onTrafficLawyer(this.props.trafficLawyer);
-    }
 
-    onSetDirectionToggle() {
-        this.props.onDirectionToggle(this.props.directionToggle);
-    }
 
-    componentDidMount() { }
 
     render() {
         return (

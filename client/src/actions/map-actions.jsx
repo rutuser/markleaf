@@ -55,7 +55,7 @@ export const getLocation = (zoom) => dispatch => {
 
 
 export const getCoords = (userName) => dispatch => {
-    axios.get('/api/coords')
+    axios.get('https://api.marktleaf.me/api/coords')
         .then(res => res.data.map(coords => {
             if(coords.user === userName) {
                 dispatch({
@@ -73,7 +73,7 @@ export const getCoords = (userName) => dispatch => {
 
 export const postCoords = (userName) => dispatch => {
     navigator.geolocation.getCurrentPosition(position => {
-        axios.post('/api/coords', {
+        axios.post('https://api.marktleaf.me/api/coords', {
             user: userName,
             lat: position.coords.latitude,
             lng: position.coords.longitude

@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Directions from '@material-ui/icons/Directions';
-import NotIntersented from '@material-ui/icons/NotInterested';
+import NotIntersented from '@material-ui/icons/NotInterestedOutlined';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Traffic from '@material-ui/icons/Traffic';
 import { withStyles } from '@material-ui/core/styles';
@@ -21,7 +21,7 @@ import { getLocation, setDirections, setTrafficLawyer, setDirectionToggle} from 
 
 const styles = {
 	PaperProps: {
-		background: "rgba(64, 247, 14, 0.3)"
+		background: "rgba(44, 44, 45, 0.2)"
 	 },
 	 BackdropProps: {
 		 background: 'transparent'
@@ -71,7 +71,7 @@ class SwipeableTemporaryDrawer extends React.Component {
 
 	onSetRoute() {
 		navigator.geolocation.getCurrentPosition(position => {
-			axios.get('/api/coords')
+			axios.get('https://api.marktleaf.me/api/coords')
 				.then(res => res.data.map(coords => {
 					if (coords.user === this.props.userName) {
 						this.props.onSetDirection(position.coords.latitude + 0.00001, position.coords.longitude + 0.00001,

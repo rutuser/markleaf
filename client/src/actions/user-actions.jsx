@@ -16,7 +16,7 @@ export const updateUser = (name, password) => dispatch => {
 }
 
 export const postUser = (name, password) => dispatch => {
-    axios.post('/api/user', {
+    axios.post('https://api.marktleaf.me/api/user', {
         name: name,
         password: password,
         signedIn: true
@@ -24,7 +24,7 @@ export const postUser = (name, password) => dispatch => {
 }
 
 export const getUser = (User, UserPass) => dispatch => {
-    axios.get('/api/user')
+    axios.get('https://api.marktleaf.me/api/user')
     .then(res => res.data.map(user => {
         if((user.name === User) && (user.password === UserPass)) {
             dispatch({
