@@ -1,5 +1,6 @@
+import axios from 'axios';
+
 import React, { Component } from 'react';
-import * as LoginStyle from '../css/login.css'
 import { FormGroup, HelpBlock, FormControl, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
@@ -64,82 +65,114 @@ const button = {
 
 class Login extends Component {
 
-    onChangePass = e => {
-        this.props.onUpdateUser(this.props.userName, e.target.value);
-    }
-
-    onChangeName = e => {
-        this.props.onUpdateUser(e.target.value, this.props.userPass);
-    }
-
-    onSubmitLogin = (e) => {
-        e.preventDefault();
-        if ((this.props.userName || this.props.userPass) === '') {
-            alert('Enter a user and a password');
-        }
-        this.props.onGetUser(this.props.userName, this.props.userPass);
-    }
-
-    onSubmitSignin = (e) => {
-        e.preventDefault();
-        if ((this.props.userName || this.props.userPass) === '') {
-            alert('Enter a user and a password');
-        } else {
-            this.props.onPostUser(this.props.userName, this.props.userPass);
-            alert('Your just signed in!');
+    constructor() {
+        super();
+        this.state = {
+            animatedLog: 'L'
         }
     }
 
-    render() {
-        return (
-            <div style={MainDiv}>
-                <div style={container}>
-                    <div style={Icon}>
-                        L
+
+onChangePass = e => {
+    this.props.onUpdateUser(this.props.userName, e.target.value);
+}
+
+onChangeName = e => {
+    this.props.onUpdateUser(e.target.value, this.props.userPass);
+    var animeLog = e.target.value;
+    this.setState({
+        animatedLog: animeLog.slice(animeLog.length-1).toUpperCase()
+    })
+}
+
+onSubmitLogin = (e) => {
+    e.preventDefault();
+    if ((this.props.userName || this.props.userPass) === '') {
+        alert('Enter a user and a password');
+    }
+    this.props.onGetUser(this.props.userName, this.props.userPass);
+    this.confirmLogin();
+}
+
+confirmLogin = () => {
+    var found;
+    axios.get('https://api.marktleaf.me/api/user')
+        .then(res => {
+            res.data.map(user => {
+                if (user.name === this.props.userName) {
+                    found = true;
+                }
+            })
+            // console.log(found);
+            if (found == undefined) {
+                alert('Sign in first');
+            }
+        })
+        .catch(err => console.log(err));
+}
+
+onSubmitSignin = (e) => {
+    e.preventDefault();
+    if ((this.props.userName || this.props.userPass) === '') {
+        alert('Enter a user and a password');
+    } else {
+        this.props.onPostUser(this.props.userName, this.props.userPass);
+        alert('Your just signed in!');
+    }
+}
+
+render() {
+    return (
+        <div style={MainDiv}>
+            <div style={container}>
+                <div style={Icon}>
+                    {this.state.animatedLog}
                     </div>
-                    <div>
-                        <form>
-                            <FormGroup
-                                controlId="formBasicText"
-                            >
-                                <FormControl
-                                    type="text"
-                                    placeholder="Enter User"
-                                    name='name'
-                                    onChange={e => this.onChangeName(e)}
-                                />
-                            </FormGroup>
-                            <FormGroup
-                                controlId="formBasicText"
-                            >
-                                <FormControl
-                                    type="password"
-                                    placeholder="Enter Password"
-                                    name='password'
-                                    onChange={e => this.onChangePass(e)}
-                                />
-                                <HelpBlock>Validation is based on your first login</HelpBlock>
-                            </FormGroup>
-                        </form>
-                        <div style={button}>
-                            <Button onClick={e => this.onSubmitLogin(e)} bsStyle="primary" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
-                                Log in
+                <div>
+                    <form>
+                        <FormGroup
+                            controlId="formBasicText"
+                        >
+                            <FormControl
+                                type="text"
+                                placeholder="Enter User"
+                                name='name'
+                                onChange={e => this.onChangeName(e)}
+                            />
+                        </FormGroup>
+                        <FormGroup
+                            controlId="formBasicText"
+                        >
+                            <FormControl
+                                type="password"
+                                placeholder="Enter Password"
+                                name='password'
+                                onChange={e => this.onChangePass(e)}
+                            />
+                            <HelpBlock>If it is Your firts time, Sign in first please</HelpBlock>
+                        </FormGroup>
+                    </form>
+                    <div style={button}>
+                        <Button onClick={e => this.onSubmitLogin(e)} bsStyle="primary"
+                            bsSize='large' block style={{ padding: '0px', height: '40px' }}>
+                            Log in
                                 </Button>
-                            <div style={or}>
-                                <div> or </div>
-                            </div>
-                            <Button onClick={e => this.onSubmitSignin(e)} bsStyle="danger" bsSize='large' block style={{ padding: '0px', height: '40px' }}>
-                                Sign up
-                                </Button>
+                        <div style={or}>
+                            <div> or </div>
                         </div>
-                    </div>
-                    <div style={sentenceTwo}>
-                        <p>© 2018 Car Seeker</p>
+                        <Button onClick={e => this.onSubmitSignin(e)} bsStyle="danger"
+                            bsSize='large' block style={{ padding: '0px', height: '40px' }}>
+                            Sign up
+                                </Button>
                     </div>
                 </div>
+                <div style={sentenceTwo}>
+                    <p>© 2018 Car Seeker</p>
+                </div>
             </div>
-        );
-    }
+        </div>
+    );
+}
 }
 
 const mapActionToProps = {

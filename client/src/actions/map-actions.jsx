@@ -9,7 +9,9 @@ export const DIRECTION_TOGGLE = 'directionToggle';
 
 
 
-
+/*
+    Updates the map coords (center)
+*/
 export const updateMapCoords = (lat, lng) => dispatch => {
     dispatch({
         type: UPDATE_COORDS,
@@ -21,6 +23,10 @@ export const updateMapCoords = (lat, lng) => dispatch => {
     });
 }
 
+
+/*
+    Set te traffic status using some toggle stuff
+*/
 export const setTrafficLawyer = (trafficLawyer) => dispatch => {
     dispatch({
         type: SET_TRAFFIC,
@@ -30,6 +36,10 @@ export const setTrafficLawyer = (trafficLawyer) => dispatch => {
     });
 }
 
+
+/*
+    Toggle the Direction render in the map component
+ */
 export const setDirectionToggle = (directionToggle) => dispatch => {
     dispatch({
         type: DIRECTION_TOGGLE,
@@ -40,6 +50,9 @@ export const setDirectionToggle = (directionToggle) => dispatch => {
 }
 
 
+/* 
+    Gets the current location in your device, setting it in the map component
+*/
 export const getLocation = (zoom) => dispatch => {
     navigator.geolocation.getCurrentPosition(position => {
         dispatch({
@@ -54,6 +67,9 @@ export const getLocation = (zoom) => dispatch => {
 }
 
 
+/*
+    Gets the location from the database / backend
+*/
 export const getCoords = (userName) => dispatch => {
     axios.get('https://api.marktleaf.me/api/coords')
         .then(res => res.data.map(coords => {
@@ -71,6 +87,10 @@ export const getCoords = (userName) => dispatch => {
         .catch(err => () => console.log(err));
 }
 
+
+/* 
+    Sends your car location to the database
+*/
 export const postCoords = (userName) => dispatch => {
     navigator.geolocation.getCurrentPosition(position => {
         axios.post('https://api.marktleaf.me/api/coords', {
@@ -81,6 +101,10 @@ export const postCoords = (userName) => dispatch => {
     });
 }
 
+
+/*
+    Sets the direction render from the data in our database of the car, to your current location
+*/
 export const setDirections = (myLat, myLng, carLat, carLng) => dispatch => {
     const DirectionsService = new window.google.maps.DirectionsService();
 

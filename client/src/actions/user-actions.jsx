@@ -5,6 +5,9 @@ export const POST_USER = 'postUser';
 export const GET_USER = 'getUser';
 
 
+/* 
+    Updates de user in the store**
+*/
 export const updateUser = (name, password) => dispatch => {
     dispatch({
         type: UPDATE_USER,
@@ -15,6 +18,10 @@ export const updateUser = (name, password) => dispatch => {
     });
 }
 
+
+/* 
+    Sends the user data to the database
+*/
 export const postUser = (name, password) => dispatch => {
     axios.post('https://api.marktleaf.me/api/user', {
         name: name,
@@ -23,6 +30,10 @@ export const postUser = (name, password) => dispatch => {
     })
 }
 
+
+/*
+    Gets the user data from the database
+ */
 export const getUser = (User, UserPass) => dispatch => {
     axios.get('https://api.marktleaf.me/api/user')
     .then(res => res.data.map(user => {

@@ -1,14 +1,9 @@
-import axios from 'axios';
-
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import * as HeaderStyle from '../css/header.css'
 import { connect } from 'react-redux';
-import {
-    updateMapCoords, getLocation, postCoords, getCoords, setDirections, setTrafficLawyer,
-    setDirectionToggle
-} from '../actions/map-actions';
+import { updateMapCoords, getLocation, postCoords, getCoords } from '../actions/map-actions';
 
 
 class Header extends Component {
@@ -28,10 +23,6 @@ class Header extends Component {
     onGetCoords() {
         this.props.getNewCoords(this.props.userName);
     }
-
-
-
-
 
 
     render() {

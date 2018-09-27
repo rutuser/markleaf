@@ -66,7 +66,7 @@ class SwipeableTemporaryDrawer extends React.Component {
 	}
 
 	onGetLocation() {
-		this.props.onUpdateLocation(11);
+		this.props.onUpdateLocation(15);
 	}
 
 	onSetRoute() {
@@ -80,6 +80,7 @@ class SwipeableTemporaryDrawer extends React.Component {
 				}))
 				.catch(err => console.log(err));
 		});
+		this.props.onDirectionToggle(this.props.directionToggle);
 	}
 
 	onSetDirectionToggle() {

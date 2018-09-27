@@ -38,18 +38,18 @@ class MainContainer extends Component {
 						<Header />
 						<ModalContainer />
 						<Route exact path='/' component={map} />
-
 						<Route path='/User' component={User} />
 						<Route path='/Info' component={Info} />
 						<SwipeableTemporaryDrawer />
-						<button style={{
-							background: 'transparent',
-							border: '0px',
-							height: '40px',
-							position: 'absolute',
-							bottom: '0px',
-							right: '47vw'
-						}} onClick={this.toggleHandler} ><KeyboardArrowUp style={{color: '#eee'}} /></button>
+							<button style={{
+								background: 'transparent',
+								border: '0px',
+								height: '40px',
+								position: 'absolute',
+								bottom: '0px',
+								right: '50%'
+							}} onClick={this.toggleHandler} ><KeyboardArrowUp style={{color: '#eee'}} />
+						</button>
 					</div>
 				</Router>
 			);

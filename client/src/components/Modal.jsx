@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Popover, Button, Modal, OverlayTrigger, Tooltips, Tooltip } from 'react-bootstrap';
+import * as React from 'react';
+import { Modal } from 'react-bootstrap';
 
 
 

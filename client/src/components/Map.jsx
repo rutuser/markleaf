@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer, TrafficLayer } from "react-google-maps"
-import * as MapStyle from '../css/map.css';
 import { compose, withProps } from "recompose"
 
 import { connect } from 'react-redux';
@@ -43,7 +42,7 @@ class Map extends Component {
 
 
 	componentDidMount() {
-		this.props.onGetLocation(8);
+		this.props.onGetLocation(10);
 	}
 
 	render() {

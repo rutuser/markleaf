@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 
-import { updateUser } from '../actions/user-actions';
 
 
 class User extends Component {

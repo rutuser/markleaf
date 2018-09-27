@@ -13,7 +13,7 @@ const initialState = {
     zoom: 8,
     directions: {},
     trafficLawyer: false,
-    directionToggle: true
+    directionToggle: false
   },
   toggleDrawer: false,
   user: {
